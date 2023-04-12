@@ -25,3 +25,8 @@ To stop Docker
 ```
 docker stop <container_id>
 ```
+
+To run setup.py
+```
+python setup.py install
+```
