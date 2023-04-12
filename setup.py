@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from typing import List 
 
 
@@ -15,6 +15,6 @@ setup(
     version="0.0.1",
     author='Shashvath',
     description='Predicting housing prices for California hosuing dataset',
-    packages=['housing'],
+    packages=find_packages(),
     install_requires = get_requirements_list()
 )
