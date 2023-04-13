@@ -4,5 +4,6 @@ pandas
 gunicorn
 scikit-learn
 ipykernel
+PyYAML
 
 -e .
