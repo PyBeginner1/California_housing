@@ -30,3 +30,11 @@ To run setup.py
 ```
 python setup.py install
 ```
+
+Create 6 Components
+1. Data Ingestion
+2. Data Validation
+3. Data Transformation
+4. Model Trainer
+5. Model Eva;uation
+6. Model Pusher
