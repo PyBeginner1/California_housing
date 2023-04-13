@@ -3,6 +3,6 @@ numpy
 pandas
 gunicorn
 scikit-learn
-
+ipykernel
 
 -e .
