@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 notebook/yaml_test.ipynb
+housing/artifact/
+demo.py
