@@ -12,7 +12,7 @@ from housing.entity.artifact_entity import DataIngestionArtifact
 from sklearn.model_selection import StratifiedShuffleSplit
 
 
-class DataImgestion:
+class DataIngestion:
     def __init__(self,data_ingestion_config: DataIngestionConfig):
         try:
             logging.info(f"{'>>'*20}Data Ingestion log started.{'<<'*20} ")
@@ -115,7 +115,7 @@ class DataImgestion:
             raise HousingException(e,sys) from e
         
 
-    def initiate_data_iongestion(self)->DataIngestionArtifact:
+    def initiate_data_ingestion(self)->DataIngestionArtifact:
         try:
             tgz_file_path=self.download_housing_data()
             self.extract_tgz_file(tgz_file_path=tgz_file_path)
