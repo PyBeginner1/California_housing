@@ -30,9 +30,11 @@ class Configuration:
 
             raw_data_dir=os.path.join(data_ingestion_artifact_dir,data_ingestion_config_info[DATA_INGESTION_RAW_DATA_DIR_KEY])
 
-            ingested_train_dir=os.path.join(data_ingestion_artifact_dir,data_ingestion_config_info[DATA_INGESTION_TRAIN_DIR_KEY])
+            ingested_data_dir=os.path.join(data_ingestion_artifact_dir,data_ingestion_config_info[DATA_INGESTION_INGESTED_DIR_NAME_KEY])
 
-            ingested_test_dir=os.path.join(data_ingestion_artifact_dir,data_ingestion_config_info[DATA_INGESTION_TEST_DIR_KEY])
+            ingested_train_dir=os.path.join(ingested_data_dir,data_ingestion_config_info[DATA_INGESTION_TRAIN_DIR_KEY])
+
+            ingested_test_dir=os.path.join(ingested_data_dir,data_ingestion_config_info[DATA_INGESTION_TEST_DIR_KEY])
 
             data_ingestion_config=DataIngestionConfig(dataset_download_url=dataset_download_url,
                                 tgz_download_dir=tgz_download_dir,
