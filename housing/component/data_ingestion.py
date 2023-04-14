@@ -102,7 +102,7 @@ class DataIngestion:
             if strat_test_set is not None:
                 os.makedirs(self.data_ingestion_config.ingested_test_dir)
                 logging.info(f"Exporting test dataset to filepath: [{test_file_path}]")
-                strat_test_set.to_csv(train_file_path,index=False)
+                strat_test_set.to_csv(test_file_path,index=False)
 
             data_ingestion_artifact=DataIngestionArtifact(train_file_path=train_file_path,
                                   test_file_path=test_file_path,
