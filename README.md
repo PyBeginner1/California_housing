@@ -40,3 +40,9 @@ Create 6 Components
 4. Model Trainer
 5. Model Evaluation
 6. Model Pusher
+
+
+To have a progress bar while downloading a library
+```
+pip install --progress-bar=on <library>
+```
