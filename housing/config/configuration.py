@@ -55,7 +55,7 @@ class Configuration:
 
             data_validation_config_info=self.config_info[DATA_VALIDATION_CONFIG_KEY]
 
-            schema_file_path=os.path.join(data_validation_dir,data_validation_config_info[DATA_VALIDATION_SCHEMA_DIR_KEY],
+            schema_file_path=os.path.join(ROOT_DIR,data_validation_config_info[DATA_VALIDATION_SCHEMA_DIR_KEY],
                                           data_validation_config_info[DATA_VALIDATION_SCHEMA_FILE_NAME_KEY])
             
             report_file_path=os.path.join(data_validation_dir,data_validation_config_info[DATA_VALIDATION_REPORT_FILE_NAME_KEY])
