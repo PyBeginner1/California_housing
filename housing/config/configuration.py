@@ -116,15 +116,15 @@ class Configuration:
             
             base_accuarcy=get_model_trainer_config_info[MODEL_TRAINER_BASE_ACCURACY_KEY]
 
-            #check
-            model_config_file_path=os.path.join(model_trainer_artifact_dir,get_model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_DIR_KEY],
-                                                get_model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY])
+            
+            model_config_file_path = os.path.join(ROOT_DIR,get_model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_DIR_KEY],
+                                                    get_model_trainer_config_info[MODEL_TRAINER_MODEL_CONFIG_FILE_NAME_KEY])
 
             model_trainer_config=ModelTrainerConfig(trained_model_file_path=trained_model_file_path,
                                                     base_accuracy=base_accuarcy,
                                                     model_config_file_path=model_config_file_path)
             
-            logging.info('Model Trainer config: {model_trainer_config}')
+            logging.info(f'Model Trainer config: {model_trainer_config}')
 
             return model_trainer_config
         except Exception as e:
