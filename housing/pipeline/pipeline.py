@@ -2,7 +2,7 @@ import sys
 
 from housing.config.configuration import Configuration
 from housing.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformationArtifact,ModelTrainerArtifact,ModelEvaluationArtifact
-from housing.entity.config_entity import DataIngestionConfig,DataValidationConfig,ModelTrainerConfig,ModelEvaluationConfig
+from housing.entity.config_entity import DataIngestionConfig,DataValidationConfig,ModelTrainerConfig,ModelEvaluationConfig,ModelPusherConfig
 from housing.logger import logging
 from housing.exception import HousingException
 from housing.component.data_ingestion import DataIngestion
@@ -10,6 +10,7 @@ from housing.component.data_validation import DataValidation
 from housing.component.data_transformation import DataTransformation
 from housing.component.model_trainer import ModelTrainer
 from housing.component.model_evaluation import ModelEvaluation
+from housing.component.model_pusher import ModelPusher
 
 class Pipeline:
     def __init__(self, config: Configuration):
@@ -68,9 +69,12 @@ class Pipeline:
             raise HousingException(e, sys) from e
         
 
-    def start_model_pusher(self):
+    def start_model_pusher(self, model_evaluation_artifact: ModelEvaluationArtifact):
         try:
-            pass
+            logging.info(f"{'>>' * 30}Model Pusher log started.{'<<' * 30} ")
+            model_pusher = ModelPusher(model_pusher_config = self.config.get_model_pusher_config(),
+                                       model_evaluation_artifact = model_evaluation_artifact)
+            return model_pusher.initiate_model_pusher()
         except Exception as e:
             raise HousingException(e,sys) from e
         
@@ -78,14 +82,15 @@ class Pipeline:
     #Run all the above components
     def run_pipeline(self):
         try:
-            data_ingestion_artifact=self.start_data_ingestion()
-            data_validation_artifact=self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
-            data_transformation_artifact=self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact,
+            data_ingestion_artifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
+            data_transformation_artifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact,
                                            data_validation_artifact=data_validation_artifact)
-            model_trainer_artifact=self.start_model_trainer(model_trainer_config=self.config.get_model_trainer_config(),
+            model_trainer_artifact = self.start_model_trainer(model_trainer_config=self.config.get_model_trainer_config(),
                                                             data_transformation_artifact=data_transformation_artifact)
-            model_evaluation_artifact=self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
+            model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
                                                                     data_validation_artifact=data_validation_artifact,
                                                                     model_trainer_artifact=model_trainer_artifact)
+            model_pusher_Artifact = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
         except Exception as e:
             raise HousingException(e,sys) from e

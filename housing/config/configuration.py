@@ -160,7 +160,7 @@ class Configuration:
                                          time_stamp)
 
             model_pusher_config=ModelPusherConfig(export_dir_path=export_dir_path)
-            logging.info('Model Pusher config: {model_pusher_config}')
+            logging.info(f'Model Pusher config: {model_pusher_config}')
             return model_pusher_config
         except Exception as e:
             raise HousingException(e,sys) from e
