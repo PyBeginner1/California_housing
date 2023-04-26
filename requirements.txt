@@ -6,5 +6,7 @@ scikit-learn
 ipykernel
 PyYAML
 evidently
+matplotlib
+
 
 -e .
