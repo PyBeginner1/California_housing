@@ -166,53 +166,6 @@ def saved_models_dir(req_path):
     return render_template('saved_models_files.html', result=result)
 
 
-@app.route("/update_model_config", methods=['GET', 'POST'])
-def update_model_config():
-    try:
-        if request.method == 'POST':
-            model_config = request.form['new_model_config']
-            model_config = model_config.replace("'", '"')
-            print(model_config)
-            model_config = json.loads(model_config)
-
-            write_yaml_file(file_path=MODEL_CONFIG_FILE_PATH, data=model_config)
-
-        model_config = read_yaml_file(file_path=MODEL_CONFIG_FILE_PATH)
-        return render_template('update_model.html', result={"model_config": model_config})
-
-    except  Exception as e:
-        logging.exception(e)
-        return str(e)
-
-
-@app.route(f'/logs', defaults={'req_path': f'{LOG_FOLDER_NAME}'})
-@app.route(f'/{LOG_FOLDER_NAME}/<path:req_path>')
-def render_log_dir(req_path):
-    os.makedirs(LOG_FOLDER_NAME, exist_ok=True)
-    # Joining the base and the requested path
-    logging.info(f"req_path: {req_path}")
-    abs_path = os.path.join(req_path)
-    print(abs_path)
-    # Return 404 if path doesn't exist
-    if not os.path.exists(abs_path):
-        return abort(404)
-
-    # Check if path is a file and serve
-    if os.path.isfile(abs_path):
-        log_df = get_log_dataframe(abs_path)
-        context = {"log": log_df.to_html(classes="table-striped", index=False)}
-        return render_template('log.html', context=context)
-
-    # Show directory contents
-    files = {os.path.join(abs_path, file): file for file in os.listdir(abs_path)}
-
-    result = {
-        "files": files,
-        "parent_folder": os.path.dirname(abs_path),
-        "parent_label": abs_path
-    }
-    return render_template('log_files.html', result=result)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
