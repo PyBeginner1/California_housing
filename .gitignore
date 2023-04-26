@@ -133,5 +133,4 @@ demo.py
 housing/artifact/
 notebook/testing.ipynb
 .vscode/launch.json
-saved_models/20230424111721/model.pkl
-saved_models/20230424151744/model.pkl
+saved_models/
